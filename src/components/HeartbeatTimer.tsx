@@ -6,6 +6,7 @@ import { usePersistedUpdates } from '@/hooks/usePersistedUpdates';
 import { useUser } from '@/contexts/UserContext';
 import UpdatesPanel from './UpdatesPanel';
 import EmotionSelector from './EmotionSelector';
+import NavigationTabs from './NavigationTabs';
 import { useRef, useCallback } from 'react';
 
 const emotionMessages = {
@@ -44,7 +45,12 @@ export default function HeartbeatTimer() {
   return (
     <>
       <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-8 relative">
-        {/* User info and logout - positioned at top right */}
+        {/* Navigation tabs - centered at top */}
+        <div className="absolute top-6 left-1/2 transform -translate-x-1/2">
+          <NavigationTabs />
+        </div>
+
+        {/* User info and logout - positioned at top right (original design) */}
         <div className="absolute top-6 right-6 flex items-center gap-3">
           {currentUser && (
             <span className="text-white/80 text-sm font-medium">
