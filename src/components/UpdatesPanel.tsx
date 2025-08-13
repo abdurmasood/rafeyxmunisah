@@ -82,7 +82,7 @@ export default function UpdatesPanel() {
               {sampleUpdates.map((update, index) => (
                 <div key={update.id} className="group">
                   <div className="mb-2">
-                    <span className="text-xs text-[#ffffff]/40 font-mono tracking-wide">
+                    <span className="text-xs text-[#ffffff]/80 font-mono tracking-wide">
                       {update.timestamp}
                     </span>
                   </div>
@@ -100,7 +100,7 @@ export default function UpdatesPanel() {
           {/* Minimal Footer */}
           <div className="px-8 py-6">
             <div className="w-full h-px bg-[#ffffff]/10 mb-4" />
-            <p className="text-xs text-[#ffffff]/40 font-mono">
+            <p className="text-xs text-[#ffffff]/80 font-mono">
               Live • {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
             </p>
           </div>
