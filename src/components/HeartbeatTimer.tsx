@@ -1,6 +1,6 @@
 'use client';
 
-import { Heart } from 'lucide-react';
+import { Heart, Rabbit, Cat, Dog, Panda } from 'lucide-react';
 import { useTimer } from '@/hooks/useTimer';
 import UpdatesPanel from './UpdatesPanel';
 
@@ -20,6 +20,23 @@ export default function HeartbeatTimer() {
         <div className="font-courier-prime text-2xl text-white tracking-wider">
           {formattedTime}
         </div>
+      </div>
+      
+      {/* Animal icons in corners */}
+      <div className="fixed top-4 left-4 z-30">
+        <Dog className="w-6 h-6 text-white/60" strokeWidth={1} />
+      </div>
+      
+      <div className="fixed top-4 right-4 z-30">
+        <Cat className="w-6 h-6 text-white/60" strokeWidth={1} />
+      </div>
+      
+      <div className="fixed bottom-4 left-4 z-30">
+        <Panda className="w-6 h-6 text-white/60" strokeWidth={1} />
+      </div>
+      
+      <div className="fixed bottom-4 right-4 z-30">
+        <Rabbit className="w-6 h-6 text-white/60" strokeWidth={1} />
       </div>
       
       <UpdatesPanel />
