@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, forwardRef, useImperativeHandle } from 'react';
-import { ChevronLeft } from 'lucide-react';
 
 interface Update {
   id: number;
@@ -39,7 +38,6 @@ const sampleUpdates: Update[] = [
 
 const UpdatesPanel = forwardRef<{ togglePanel: () => void }>((props, ref) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
   const togglePanel = () => {
     setIsOpen(!isOpen);

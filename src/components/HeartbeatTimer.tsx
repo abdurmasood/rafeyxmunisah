@@ -1,6 +1,6 @@
 'use client';
 
-import { Heart, Rabbit, Cat, Dog, Panda, ArrowUpRight, MessageCircleMore } from 'lucide-react';
+import { Heart, ArrowUpRight, MessageCircleMore } from 'lucide-react';
 import { useTimer } from '@/hooks/useTimer';
 import UpdatesPanel from './UpdatesPanel';
 import { useRef } from 'react';
