@@ -14,7 +14,7 @@ const sampleUpdates: Update[] = [
   {
     id: '1',
     timestamp: new Date('2024-08-10T14:30:00'),
-    message: 'Added microsecond precision to the timer for even more accurate timing! ❤️',
+    message: 'Added microsecond precision to the timer for even more accurate timing',
     type: 'feature'
   },
   {
@@ -26,7 +26,7 @@ const sampleUpdates: Update[] = [
   {
     id: '3',
     timestamp: new Date('2024-08-05T18:45:00'),
-    message: 'The heart animation now perfectly syncs with our love story. 💕',
+    message: 'The heart animation now perfectly syncs with our love story.',
     type: 'info'
   }
 ];
@@ -50,11 +50,11 @@ export default function UpdatesPanel() {
   const getUpdateIcon = (type: Update['type']) => {
     switch (type) {
       case 'feature':
-        return '✨';
+        return '•';
       case 'announcement':
-        return '📢';
+        return '•';
       case 'info':
-        return 'ℹ️';
+        return '•';
       default:
         return '•';
     }
@@ -69,11 +69,11 @@ export default function UpdatesPanel() {
         }`}
         onClick={togglePanel}
       >
-        <div className="bg-gray-800 hover:bg-gray-700 p-2 rounded-l-lg shadow-lg border-l border-t border-b border-gray-600">
+        <div className="p-2 opacity-60 hover:opacity-90">
           {isOpen ? (
-            <ChevronRight className="w-5 h-5 text-white" />
+            <ChevronRight className="w-6 h-6 text-gray-300" />
           ) : (
-            <ChevronLeft className="w-5 h-5 text-white" />
+            <ChevronLeft className="w-6 h-6 text-gray-300 animate-pulse" />
           )}
         </div>
       </div>
@@ -111,7 +111,7 @@ export default function UpdatesPanel() {
           {/* Footer */}
           <div className="border-t border-gray-800 pt-4 mt-6">
             <p className="text-gray-500 text-xs text-center">
-              All updates are crafted with love 💕
+              All updates are crafted with love
             </p>
           </div>
         </div>
