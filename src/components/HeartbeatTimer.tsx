@@ -9,13 +9,13 @@ import { useRef, useCallback } from 'react';
 
 const emotionMessages = {
   happy: "Feeling joyful and bright ✨",
-  sad: "Navigating through blue moments 💙",
-  angry: "Processing intense emotions 🔥",
-  love: "Heart overflowing with affection 💕",
-  neutral: "Finding balance in the moment ⚖️",
-  excited: "Energy levels at maximum! 🚀",
-  energetic: "Buzzing with life and vitality ⚡",
-  tired: "Taking time to rest and recharge 🌙"
+  sad: "Navigating through blue moments",
+  angry: "Red Ross!",
+  love: "Heart overflowing with affection",
+  neutral: "Finding balance.",
+  excited: "Energy levels pro max! 🚀",
+  energetic: "Got the zoomies ⚡",
+  tired: "Sleepy Bunny 🐰"
 };
 
 export default function HeartbeatTimer() {
