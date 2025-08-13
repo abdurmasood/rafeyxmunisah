@@ -1,21 +1,18 @@
 'use client';
 
-import { useState, forwardRef, useImperativeHandle } from 'react';
+import { useState, forwardRef, useImperativeHandle, useEffect } from 'react';
+import type { UpdateWithUser } from '@/hooks/usePersistedUpdates';
 
-interface Update {
-  id: number;
-  timestamp: string;
-  content: string;
-  isRead: boolean;
-}
+// Removed unused interface - using UpdateWithUser instead
 
 interface UpdatesPanelProps {
-  updates: Update[];
+  updates: UpdateWithUser[];
   onPanelOpen?: () => void;
 }
 
 const UpdatesPanel = forwardRef<{ togglePanel: () => void }, UpdatesPanelProps>(({ updates = [], onPanelOpen }, ref) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [currentTime, setCurrentTime] = useState<string>('');
 
   const togglePanel = () => {
     if (!isOpen && onPanelOpen) {
@@ -27,6 +24,17 @@ const UpdatesPanel = forwardRef<{ togglePanel: () => void }, UpdatesPanelProps>(
   useImperativeHandle(ref, () => ({
     togglePanel
   }));
+
+  useEffect(() => {
+    const updateTime = () => {
+      setCurrentTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    };
+    
+    updateTime(); // Set initial time
+    const interval = setInterval(updateTime, 1000); // Update every second
+    
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
@@ -55,9 +63,12 @@ const UpdatesPanel = forwardRef<{ togglePanel: () => void }, UpdatesPanelProps>(
               ) : (
                 updates.map((update, index) => (
                   <div key={update.id} className="group">
-                    <div className="mb-2">
+                    <div className="mb-2 flex items-center justify-between">
                       <span className="text-xs text-[#ffffff]/80 font-mono tracking-wide">
                         {update.timestamp}
+                      </span>
+                      <span className="text-xs text-[#ffffff]/60 font-medium px-2 py-1 rounded-full bg-[#ffffff]/10">
+                        {update.users?.display_name || 'Unknown'}
                       </span>
                     </div>
                     <p className="text-[#ffffff] leading-relaxed">
@@ -76,7 +87,7 @@ const UpdatesPanel = forwardRef<{ togglePanel: () => void }, UpdatesPanelProps>(
           <div className="px-8 py-6">
             <div className="w-full h-px bg-[#ffffff]/10 mb-4" />
             <p className="text-xs text-[#ffffff]/80 font-mono">
-              Live • {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              Live • {currentTime}
             </p>
           </div>
         </div>
