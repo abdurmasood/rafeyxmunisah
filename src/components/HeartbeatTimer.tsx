@@ -73,7 +73,7 @@ export default function HeartbeatTimer() {
           />
         </div>
         
-        <div className="font-courier-prime text-2xl text-white tracking-wider">
+        <div className="font-courier-prime text-2xl text-white tracking-wider tabular-nums text-center">
           {formattedTime}
         </div>
         
