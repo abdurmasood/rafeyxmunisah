@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { createSupabaseClient } from '@/lib/supabase-edge';
 
 export async function GET() {
   try {
+    const supabase = createSupabaseClient();
     const { data: updates, error } = await supabase
       .from('updates')
       .select(`
@@ -31,6 +32,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    const supabase = createSupabaseClient();
     const { user_id, content, emotion_type } = await request.json();
 
     if (!user_id || !content || !emotion_type) {
@@ -81,6 +83,7 @@ export async function POST(request: NextRequest) {
 
 export async function PATCH(request: NextRequest) {
   try {
+    const supabase = createSupabaseClient();
     const { updateIds, markAsRead } = await request.json();
 
     if (!Array.isArray(updateIds)) {

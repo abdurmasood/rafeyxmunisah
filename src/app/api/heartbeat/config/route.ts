@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { createSupabaseClient } from '@/lib/supabase-edge';
 
 export async function GET() {
   try {
+    const supabase = createSupabaseClient();
     const { data: config, error } = await supabase
       .from('heartbeat_config')
       .select('*')
@@ -23,6 +24,7 @@ export async function GET() {
 
 export async function PUT(request: NextRequest) {
   try {
+    const supabase = createSupabaseClient();
     const { start_date } = await request.json();
 
     if (!start_date) {

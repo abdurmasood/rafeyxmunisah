@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { createSupabaseClient } from '@/lib/supabase-edge';
 
 export async function GET() {
   try {
+    const supabase = createSupabaseClient();
     // Get all data needed for sync
     const [usersResult, updatesResult, configResult] = await Promise.all([
       supabase.from('users').select('*').order('created_at', { ascending: true }),
@@ -51,6 +52,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    const supabase = createSupabaseClient();
     const { action, data } = await request.json();
 
     switch (action) {

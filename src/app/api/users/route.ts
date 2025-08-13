@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { createSupabaseClient } from '@/lib/supabase-edge';
 
 export async function GET() {
   try {
+    const supabase = createSupabaseClient();
     const { data: users, error } = await supabase
       .from('users')
       .select('*')
@@ -23,6 +24,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    const supabase = createSupabaseClient();
     const { name, display_name } = await request.json();
 
     if (!name || !display_name) {
