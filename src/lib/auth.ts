@@ -1,4 +1,5 @@
-import { webcrypto } from 'crypto';
+// Use globalThis.crypto for both Node.js and browser compatibility
+const crypto = globalThis.crypto || (typeof window !== 'undefined' ? window.crypto : null);
 
 // Password strength validation
 export function validatePassword(password: string): { isValid: boolean; message?: string } {
@@ -10,14 +11,18 @@ export function validatePassword(password: string): { isValid: boolean; message?
 
 // Hash password using Web Crypto API (available in Node.js and browsers)
 export async function hashPassword(password: string): Promise<string> {
+  if (!crypto) {
+    throw new Error('Web Crypto API not available');
+  }
+  
   const encoder = new TextEncoder();
   const data = encoder.encode(password);
   
   // Generate a random salt
-  const salt = webcrypto.getRandomValues(new Uint8Array(16));
+  const salt = crypto.getRandomValues(new Uint8Array(16));
   
   // Import password as key
-  const key = await webcrypto.subtle.importKey(
+  const key = await crypto.subtle.importKey(
     'raw',
     data,
     { name: 'PBKDF2' },
@@ -26,7 +31,7 @@ export async function hashPassword(password: string): Promise<string> {
   );
   
   // Derive key using PBKDF2
-  const derivedBits = await webcrypto.subtle.deriveBits(
+  const derivedBits = await crypto.subtle.deriveBits(
     {
       name: 'PBKDF2',
       salt: salt,
@@ -50,6 +55,10 @@ export async function hashPassword(password: string): Promise<string> {
 // Verify password against hash
 export async function verifyPassword(password: string, hash: string): Promise<boolean> {
   try {
+    if (!crypto) {
+      throw new Error('Web Crypto API not available');
+    }
+    
     const encoder = new TextEncoder();
     const data = encoder.encode(password);
     
@@ -61,7 +70,7 @@ export async function verifyPassword(password: string, hash: string): Promise<bo
     const storedHash = combined.slice(16);
     
     // Import password as key
-    const key = await webcrypto.subtle.importKey(
+    const key = await crypto.subtle.importKey(
       'raw',
       data,
       { name: 'PBKDF2' },
@@ -70,7 +79,7 @@ export async function verifyPassword(password: string, hash: string): Promise<bo
     );
     
     // Derive key using the same parameters
-    const derivedBits = await webcrypto.subtle.deriveBits(
+    const derivedBits = await crypto.subtle.deriveBits(
       {
         name: 'PBKDF2',
         salt: salt,
@@ -103,8 +112,12 @@ export async function verifyPassword(password: string, hash: string): Promise<bo
 
 // Generate a secure session token
 export function generateSessionToken(): string {
+  if (!crypto) {
+    throw new Error('Web Crypto API not available');
+  }
+  
   const array = new Uint8Array(32);
-  webcrypto.getRandomValues(array);
+  crypto.getRandomValues(array);
   return btoa(String.fromCharCode(...array))
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
