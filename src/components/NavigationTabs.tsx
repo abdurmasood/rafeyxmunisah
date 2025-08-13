@@ -16,7 +16,7 @@ import {
 
 export default function NavigationTabs() {
   return (
-    <Tabs defaultValue="tab-1" className="items-center">
+    <Tabs defaultValue="tab-1" className="items-center dark">
       <TabsList>
         <TooltipProvider delayDuration={0}>
           <Tooltip>
@@ -28,7 +28,7 @@ export default function NavigationTabs() {
               </span>
             </TooltipTrigger>
             <TooltipContent className="px-2 py-1 text-xs">
-              Overview
+              Home
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -47,7 +47,7 @@ export default function NavigationTabs() {
               </span>
             </TooltipTrigger>
             <TooltipContent className="px-2 py-1 text-xs">
-              Projects
+              Emotions
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -61,26 +61,14 @@ export default function NavigationTabs() {
               </span>
             </TooltipTrigger>
             <TooltipContent className="px-2 py-1 text-xs">
-              Packages
+              Actions
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </TabsList>
-      <TabsContent value="tab-1">
-        <p className="text-muted-foreground p-4 text-center text-xs">
-          Content for Tab 1
-        </p>
-      </TabsContent>
-      <TabsContent value="tab-2">
-        <p className="text-muted-foreground p-4 text-center text-xs">
-          Content for Tab 2
-        </p>
-      </TabsContent>
-      <TabsContent value="tab-3">
-        <p className="text-muted-foreground p-4 text-center text-xs">
-          Content for Tab 3
-        </p>
-      </TabsContent>
+      <TabsContent value="tab-1" />
+      <TabsContent value="tab-2" />
+      <TabsContent value="tab-3" />
     </Tabs>
   )
 }
