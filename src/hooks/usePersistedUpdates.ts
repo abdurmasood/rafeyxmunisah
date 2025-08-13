@@ -131,6 +131,42 @@ export function usePersistedUpdates() {
     };
   }, []);
 
+  // Set up polling to fetch updates every 2 seconds as backup
+  useEffect(() => {
+    const fetchUpdates = async () => {
+      try {
+        const response = await fetch('/api/updates');
+        const data = await response.json();
+        
+        if (response.ok && data.updates) {
+          setUpdates(prev => {
+            // Only update if we have new updates (compare by checking latest update ID)
+            const currentLatestId = prev[0]?.id;
+            const newLatestId = data.updates[0]?.id;
+            
+            if (newLatestId && newLatestId !== currentLatestId) {
+              // Update unread count
+              setUnreadCount(data.updates.filter((update: UpdateWithUser) => !update.is_read).length);
+              return data.updates;
+            }
+            
+            return prev; // Return previous state if no new updates
+          });
+        }
+      } catch {
+        // Silently handle polling errors to avoid spamming console
+        // Real-time subscriptions and initial load will handle connectivity issues
+      }
+    };
+
+    // Start polling after initial load is complete
+    if (!isLoading) {
+      const intervalId = setInterval(fetchUpdates, 2000); // Poll every 2 seconds
+      
+      return () => clearInterval(intervalId);
+    }
+  }, [isLoading]); // Removed updates dependency to avoid unnecessary re-renders
+
   const addUpdate = useCallback(async (content: string, userId?: string, emotionType?: string) => {
     try {
       // Use default user if none provided (will need user context later)
