@@ -68,7 +68,7 @@ const EmotionSelector = forwardRef<{ togglePopup: () => void }>((props, ref) => 
     >
       {/* Elegant cloud */}
       <div className="relative">
-        <div className="bg-black/95 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl will-change-transform">
+        <div className="bg-[#e71d36] rounded-xl p-6 shadow-xl will-change-transform">
           <div className="grid grid-cols-4 gap-1 w-64">
             {emotions.map(({ icon: Icon, name, label }) => (
               <button
@@ -78,10 +78,10 @@ const EmotionSelector = forwardRef<{ togglePopup: () => void }>((props, ref) => 
                 title={label}
               >
                 <Icon 
-                  className="w-5 h-5 text-white/60 group-hover:text-white/90 transition-colors duration-200" 
+                  className="w-5 h-5 text-white transition-colors duration-200" 
                   strokeWidth={1.2}
                 />
-                <span className="text-xs text-white/40 group-hover:text-white/70 mt-1.5 font-light tracking-wide">
+                <span className="text-xs text-white mt-1.5 font-light tracking-wide">
                   {label}
                 </span>
               </button>
@@ -90,8 +90,7 @@ const EmotionSelector = forwardRef<{ togglePopup: () => void }>((props, ref) => 
         </div>
         
         {/* Minimal pointer */}
-        <div className="absolute top-full left-6 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/10"></div>
-        <div className="absolute top-full left-6 w-0 h-0 border-l-[4px] border-r-[4px] border-t-[4px] border-l-transparent border-r-transparent border-t-black/95 translate-y-[-1px]"></div>
+        <div className="absolute top-full left-6 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[6px] border-l-transparent border-r-transparent border-t-[#e71d36]"></div>
       </div>
     </div>
   );
