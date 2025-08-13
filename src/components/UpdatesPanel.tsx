@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, forwardRef, useImperativeHandle } from 'react';
 import { ChevronLeft } from 'lucide-react';
 
 interface Update {
@@ -37,7 +37,7 @@ const sampleUpdates: Update[] = [
   }
 ];
 
-export default function UpdatesPanel() {
+const UpdatesPanel = forwardRef<{ togglePanel: () => void }>((props, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -45,23 +45,12 @@ export default function UpdatesPanel() {
     setIsOpen(!isOpen);
   };
 
+  useImperativeHandle(ref, () => ({
+    togglePanel
+  }));
+
   return (
     <>
-      {/* Invisible Trigger */}
-      <div
-        className="fixed top-0 right-0 w-8 h-full z-50 cursor-pointer"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onClick={togglePanel}
-      >
-        <div 
-          className="absolute top-1/2 -translate-y-1/2 right-2"
-        >
-          <ChevronLeft className={`w-5 h-5 transition-all duration-300 ${
-            isHovered ? 'text-red-400' : 'text-[#ffffff]/70'
-          } ${isOpen ? 'rotate-180' : ''}`} />
-        </div>
-      </div>
 
       {/* Updates Panel */}
       <div
@@ -108,4 +97,8 @@ export default function UpdatesPanel() {
       </div>
     </>
   );
-}
+});
+
+UpdatesPanel.displayName = 'UpdatesPanel';
+
+export default UpdatesPanel;

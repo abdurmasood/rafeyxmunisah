@@ -1,11 +1,13 @@
 'use client';
 
-import { Heart, Rabbit, Cat, Dog, Panda } from 'lucide-react';
+import { Heart, Rabbit, Cat, Dog, Panda, ArrowUpRight, MessageCircleMore } from 'lucide-react';
 import { useTimer } from '@/hooks/useTimer';
 import UpdatesPanel from './UpdatesPanel';
+import { useRef } from 'react';
 
 export default function HeartbeatTimer() {
   const { formattedTime } = useTimer();
+  const updatesPanelRef = useRef<{ togglePanel: () => void }>(null);
 
   return (
     <>
@@ -20,26 +22,22 @@ export default function HeartbeatTimer() {
         <div className="font-courier-prime text-2xl text-white tracking-wider">
           {formattedTime}
         </div>
+        
+        <div className="flex gap-4">
+          <button className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-200">
+            <ArrowUpRight className="w-6 h-6 text-white/60 hover:text-white" strokeWidth={1} />
+          </button>
+          <button 
+            className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-200"
+            onClick={() => updatesPanelRef.current?.togglePanel()}
+          >
+            <MessageCircleMore className="w-6 h-6 text-white/60 hover:text-white" strokeWidth={1} />
+          </button>
+        </div>
       </div>
       
-      {/* Animal icons in corners */}
-      <div className="fixed top-4 left-4 z-30">
-        <Dog className="w-6 h-6 text-white/60" strokeWidth={1} />
-      </div>
       
-      <div className="fixed top-4 right-4 z-30">
-        <Cat className="w-6 h-6 text-white/60" strokeWidth={1} />
-      </div>
-      
-      <div className="fixed bottom-4 left-4 z-30">
-        <Panda className="w-6 h-6 text-white/60" strokeWidth={1} />
-      </div>
-      
-      <div className="fixed bottom-4 right-4 z-30">
-        <Rabbit className="w-6 h-6 text-white/60" strokeWidth={1} />
-      </div>
-      
-      <UpdatesPanel />
+      <UpdatesPanel ref={updatesPanelRef} />
     </>
   );
 }
