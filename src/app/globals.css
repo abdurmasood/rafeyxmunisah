@@ -46,3 +46,46 @@ body {
 .animate-heartbeat {
   animation: heartbeat 1.5s ease-in-out infinite;
 }
+
+@keyframes cloudSlideUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes cloudSlideDown {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 6px, 0) scale(0.96);
+  }
+}
+
+.animate-cloud-enter {
+  animation: cloudSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-cloud-exit {
+  animation: cloudSlideDown 0.15s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.emotion-button {
+  transition: all 0.2s ease-out;
+}
+
+.emotion-button:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.emotion-button:active {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(0.98);
+}
