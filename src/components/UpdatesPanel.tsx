@@ -107,7 +107,7 @@ export default function UpdatesPanel() {
       >
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="px-6 py-4 border-b border-white/10">
+          <div className="px-6 py-4">
             <h2 className="text-xl font-medium text-white">Updates</h2>
             <p className="text-sm text-white/60">Latest heartbeat events</p>
           </div>
@@ -135,7 +135,7 @@ export default function UpdatesPanel() {
           </div>
 
           {/* Footer */}
-          <div className="px-6 py-3 border-t border-white/10">
+          <div className="px-6 py-3">
             <p className="text-xs text-white/60 font-courier-prime">
               Last updated: {new Date().toLocaleTimeString()}
             </p>
