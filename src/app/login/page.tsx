@@ -132,7 +132,7 @@ export default function LoginPage() {
         {/* Helper Text */}
         <div className="mt-8 text-center">
           <p className="text-white/40 text-xs">
-            Enter your username and password to access the heartbeat timer
+            Enter your username and password to get access.
           </p>
         </div>
       </div>
