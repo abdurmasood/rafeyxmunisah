@@ -55,11 +55,11 @@ export default function UpdatesPanel() {
         onClick={togglePanel}
       >
         <div 
-          className={`absolute top-1/2 -translate-y-1/2 right-2 transition-opacity duration-300 ${
-            isHovered || isOpen ? 'opacity-100' : 'opacity-0'
-          }`}
+          className="absolute top-1/2 -translate-y-1/2 right-2"
         >
-          <ChevronLeft className="w-4 h-4 text-[#ffffff]/40" />
+          <ChevronLeft className={`w-5 h-5 transition-all duration-300 ${
+            isHovered ? 'text-red-400' : 'text-[#ffffff]/70'
+          } ${isOpen ? 'rotate-180' : ''}`} />
         </div>
       </div>
 
