@@ -3,8 +3,10 @@
 import { Heart, ArrowUpRight, MessageCircleMore } from 'lucide-react';
 import { useTimer } from '@/hooks/useTimer';
 import { usePersistedUpdates } from '@/hooks/usePersistedUpdates';
+import { useUser } from '@/contexts/UserContext';
 import UpdatesPanel from './UpdatesPanel';
 import EmotionSelector from './EmotionSelector';
+import UserSelector from './UserSelector';
 import { useRef, useCallback } from 'react';
 
 const emotionMessages = {
@@ -21,13 +23,20 @@ const emotionMessages = {
 export default function HeartbeatTimer() {
   const { formattedTime } = useTimer();
   const { updates, unreadCount, addUpdate, markAllAsRead } = usePersistedUpdates();
+  const { currentUser } = useUser();
   const updatesPanelRef = useRef<{ togglePanel: () => void }>(null);
   const emotionSelectorRef = useRef<{ togglePopup: () => void }>(null);
 
   const handleEmotionSelect = useCallback((emotion: string) => {
+    if (!currentUser) {
+      // Could show a toast or alert here
+      console.warn('Please select a user first');
+      return;
+    }
+    
     const message = emotionMessages[emotion as keyof typeof emotionMessages] || `Feeling ${emotion}`;
-    addUpdate(message);
-  }, [addUpdate]);
+    addUpdate(message, currentUser.id, emotion);
+  }, [addUpdate, currentUser]);
 
   const handlePanelOpen = useCallback(() => {
     markAllAsRead();
@@ -48,11 +57,14 @@ export default function HeartbeatTimer() {
         </div>
         
         <div className="flex gap-4 relative">
+          <UserSelector />
           <button 
             className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-200"
             onClick={() => emotionSelectorRef.current?.togglePopup()}
+            disabled={!currentUser}
+            title={!currentUser ? "Please select a user first" : "Add emotion update"}
           >
-            <ArrowUpRight className="w-6 h-6 text-white/60 hover:text-white" strokeWidth={1} />
+            <ArrowUpRight className={`w-6 h-6 ${!currentUser ? 'text-white/30' : 'text-white/60 hover:text-white'}`} strokeWidth={1} />
           </button>
           <button 
             className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-200 relative"
@@ -65,7 +77,10 @@ export default function HeartbeatTimer() {
               </div>
             )}
           </button>
-          <EmotionSelector ref={emotionSelectorRef} onEmotionSelect={handleEmotionSelect} />
+          <EmotionSelector 
+            ref={emotionSelectorRef} 
+            onEmotionSelect={handleEmotionSelect}
+          />
         </div>
       </div>
       
