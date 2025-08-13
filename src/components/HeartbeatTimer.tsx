@@ -6,7 +6,6 @@ import { usePersistedUpdates } from '@/hooks/usePersistedUpdates';
 import { useUser } from '@/contexts/UserContext';
 import UpdatesPanel from './UpdatesPanel';
 import EmotionSelector from './EmotionSelector';
-import UserSelector from './UserSelector';
 import { useRef, useCallback } from 'react';
 
 const emotionMessages = {
@@ -57,7 +56,6 @@ export default function HeartbeatTimer() {
         </div>
         
         <div className="flex gap-4 relative">
-          <UserSelector />
           <button 
             className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-200"
             onClick={() => emotionSelectorRef.current?.togglePopup()}
