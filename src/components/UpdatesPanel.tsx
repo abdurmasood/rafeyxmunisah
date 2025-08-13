@@ -118,7 +118,7 @@ export default function UpdatesPanel() {
               {sampleUpdates.map((update) => (
                 <div 
                   key={update.id}
-                  className="p-3 rounded-lg bg-white/5 border border-white/10"
+                  className="p-3 rounded-lg bg-white/10"
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-courier-prime text-xs text-white/60">
