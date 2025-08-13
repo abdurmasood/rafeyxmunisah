@@ -14,7 +14,11 @@ const emotions = [
   { icon: Coffee, name: 'tired', label: 'Tired' },
 ];
 
-const EmotionSelector = forwardRef<{ togglePopup: () => void }>((props, ref) => {
+interface EmotionSelectorProps {
+  onEmotionSelect: (emotion: string) => void;
+}
+
+const EmotionSelector = forwardRef<{ togglePopup: () => void }, EmotionSelectorProps>(({ onEmotionSelect }, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
   const cloudRef = useRef<HTMLDivElement>(null);
@@ -36,7 +40,7 @@ const EmotionSelector = forwardRef<{ togglePopup: () => void }>((props, ref) => 
   }));
 
   const handleEmotionSelect = (emotionName: string) => {
-    console.log(`Selected emotion: ${emotionName}`);
+    onEmotionSelect(emotionName);
     togglePopup();
   };
 

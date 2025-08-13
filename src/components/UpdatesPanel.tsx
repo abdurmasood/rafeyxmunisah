@@ -6,40 +6,21 @@ interface Update {
   id: number;
   timestamp: string;
   content: string;
+  isRead: boolean;
 }
 
-const sampleUpdates: Update[] = [
-  {
-    id: 1,
-    timestamp: '2:32 PM',
-    content: 'Heartbeat synchronized perfectly'
-  },
-  {
-    id: 2,
-    timestamp: '2:28 PM', 
-    content: 'Timer precision calibrated to microseconds'
-  },
-  {
-    id: 3,
-    timestamp: '2:15 PM',
-    content: 'Love meter: Infinite connection detected'
-  },
-  {
-    id: 4,
-    timestamp: '2:10 PM',
-    content: 'Anniversary mode activated'
-  },
-  {
-    id: 5,
-    timestamp: '2:05 PM',
-    content: 'Romantic display initialized'
-  }
-];
+interface UpdatesPanelProps {
+  updates: Update[];
+  onPanelOpen?: () => void;
+}
 
-const UpdatesPanel = forwardRef<{ togglePanel: () => void }>((props, ref) => {
+const UpdatesPanel = forwardRef<{ togglePanel: () => void }, UpdatesPanelProps>(({ updates = [], onPanelOpen }, ref) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const togglePanel = () => {
+    if (!isOpen && onPanelOpen) {
+      onPanelOpen();
+    }
     setIsOpen(!isOpen);
   };
 
@@ -66,21 +47,28 @@ const UpdatesPanel = forwardRef<{ togglePanel: () => void }>((props, ref) => {
           {/* Updates List */}
           <div className="flex-1 overflow-y-auto">
             <div className="px-8 space-y-6">
-              {sampleUpdates.map((update, index) => (
-                <div key={update.id} className="group">
-                  <div className="mb-2">
-                    <span className="text-xs text-[#ffffff]/80 font-mono tracking-wide">
-                      {update.timestamp}
-                    </span>
-                  </div>
-                  <p className="text-[#ffffff] leading-relaxed">
-                    {update.content}
-                  </p>
-                  {index < sampleUpdates.length - 1 && (
-                    <div className="w-full h-px bg-[#ffffff]/10 mt-6" />
-                  )}
+              {updates.length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-[#ffffff]/60 text-sm">No updates yet</p>
+                  <p className="text-[#ffffff]/40 text-xs mt-2">Select an emotion to create an update</p>
                 </div>
-              ))}
+              ) : (
+                updates.map((update, index) => (
+                  <div key={update.id} className="group">
+                    <div className="mb-2">
+                      <span className="text-xs text-[#ffffff]/80 font-mono tracking-wide">
+                        {update.timestamp}
+                      </span>
+                    </div>
+                    <p className="text-[#ffffff] leading-relaxed">
+                      {update.content}
+                    </p>
+                    {index < updates.length - 1 && (
+                      <div className="w-full h-px bg-[#ffffff]/10 mt-6" />
+                    )}
+                  </div>
+                ))
+              )}
             </div>
           </div>
 
