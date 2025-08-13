@@ -40,7 +40,7 @@ export default function LoginPage() {
       } else {
         setError(result.error || 'Login failed');
       }
-    } catch (_error) {
+    } catch {
       setError('An unexpected error occurred');
     } finally {
       setIsLoading(false);
