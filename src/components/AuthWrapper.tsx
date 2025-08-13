@@ -36,9 +36,18 @@ export default function AuthWrapper({ children }: AuthWrapperProps) {
     );
   }
 
-  // Show login page if on login route or not authenticated
-  if (pathname === '/login' || !isAuthenticated) {
+  // Only show login page if explicitly on login route
+  if (pathname === '/login') {
     return <>{children}</>;
+  }
+
+  // Show loading screen if not authenticated (prevents flash while redirecting)
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <Heart className="w-12 h-12 text-red-500 fill-red-500 animate-heartbeat" strokeWidth={1} />
+      </div>
+    );
   }
 
   // Show protected content if authenticated
