@@ -87,7 +87,7 @@ export default function UpdatesPanel() {
       {/* Trigger Arrow */}
       <button
         onClick={togglePanel}
-        className={`fixed top-1/2 -translate-y-1/2 z-50 bg-black/90 border border-white/20 rounded-l-lg p-3 transition-all duration-300 hover:bg-black hover:border-red-500/50 group ${
+        className={`fixed top-1/2 -translate-y-1/2 z-50 bg-red-500/20 rounded-l-lg p-3 transition-all duration-300 hover:bg-red-500/30 group ${
           isOpen ? 'right-80' : 'right-0'
         }`}
         aria-label={isOpen ? 'Close updates panel' : 'Open updates panel'}
