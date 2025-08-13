@@ -1,6 +1,6 @@
 'use client';
 
-import { Heart, ArrowUpRight, MessageCircleMore } from 'lucide-react';
+import { Heart, ArrowUpRight, MessageCircleMore, LogOut } from 'lucide-react';
 import { useTimer } from '@/hooks/useTimer';
 import { usePersistedUpdates } from '@/hooks/usePersistedUpdates';
 import { useUser } from '@/contexts/UserContext';
@@ -22,14 +22,14 @@ const emotionMessages = {
 export default function HeartbeatTimer() {
   const { formattedTime } = useTimer();
   const { updates, unreadCount, addUpdate, markAllAsRead } = usePersistedUpdates();
-  const { currentUser } = useUser();
+  const { currentUser, logout } = useUser();
   const updatesPanelRef = useRef<{ togglePanel: () => void }>(null);
   const emotionSelectorRef = useRef<{ togglePopup: () => void }>(null);
 
   const handleEmotionSelect = useCallback((emotion: string) => {
     if (!currentUser) {
       // Could show a toast or alert here
-      console.warn('Please select a user first');
+      console.warn('User not authenticated');
       return;
     }
     
@@ -43,7 +43,23 @@ export default function HeartbeatTimer() {
 
   return (
     <>
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-8">
+      <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-8 relative">
+        {/* User info and logout - positioned at top right */}
+        <div className="absolute top-6 right-6 flex items-center gap-3">
+          {currentUser && (
+            <span className="text-white/80 text-sm font-medium">
+              Welcome, {currentUser.display_name}
+            </span>
+          )}
+          <button 
+            className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-200"
+            onClick={logout}
+            title="Sign out"
+          >
+            <LogOut className="w-5 h-5 text-white/60 hover:text-white" strokeWidth={1} />
+          </button>
+        </div>
+
         <div className="relative">
           <Heart 
             className="w-24 h-24 text-red-500 fill-red-500 animate-heartbeat" 
@@ -60,7 +76,7 @@ export default function HeartbeatTimer() {
             className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-200"
             onClick={() => emotionSelectorRef.current?.togglePopup()}
             disabled={!currentUser}
-            title={!currentUser ? "Please select a user first" : "Add emotion update"}
+            title={!currentUser ? "User not available" : "Add emotion update"}
           >
             <ArrowUpRight className={`w-6 h-6 ${!currentUser ? 'text-white/30' : 'text-white/60 hover:text-white'}`} strokeWidth={1} />
           </button>

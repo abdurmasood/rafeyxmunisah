@@ -17,6 +17,10 @@ export interface User {
   created_at: string;
 }
 
+export interface UserWithPassword extends User {
+  password_hash: string;
+}
+
 export interface Update {
   id: string;
   user_id: string;
