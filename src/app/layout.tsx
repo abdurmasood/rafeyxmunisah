@@ -19,20 +19,20 @@ const courierPrime = Courier_Prime({
 });
 
 export const metadata: Metadata = {
-  title: "Rafey & Munisah",
+  title: "Rafey x Munisah",
   description: "To Infinity.",
   keywords: ["heartbeat", "timer", "love", "romantic", "anniversary", "countdown"],
   authors: [{ name: "Rafey & Munisah" }],
   creator: "Rafey",
   openGraph: {
-    title: "Heartbeat Timer | Rafey & Munisah",
+    title: "Rafey x Munisah",
     description: "To Infinity.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rafey & Munisah",
+    title: "Rafey x Munisah",
     description: "To Infinity.",
   },
   robots: {
