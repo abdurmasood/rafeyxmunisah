@@ -7,8 +7,7 @@ export const useTimer = () => {
     days: 0, 
     minutes: 0, 
     seconds: 0, 
-    milliseconds: 0, 
-    microseconds: 0 
+    milliseconds: 0
   });
 
   useEffect(() => {
@@ -53,13 +52,12 @@ export const useTimer = () => {
       const diffMs = nowTime - (startTime - performance.timeOrigin);
       
       const remainingMs = diffMs % (24 * 60 * 60 * 1000);
-      const totalMicroseconds = Math.floor(remainingMs * 1000);
-      const minutes = Math.floor(totalMicroseconds / 60000000);
-      const seconds = Math.floor((totalMicroseconds % 60000000) / 1000000);
-      const milliseconds = Math.floor((totalMicroseconds % 1000000) / 1000);
-      const microseconds = totalMicroseconds % 1000;
+      const totalMilliseconds = Math.floor(remainingMs);
+      const minutes = Math.floor(totalMilliseconds / 60000);
+      const seconds = Math.floor((totalMilliseconds % 60000) / 1000);
+      const milliseconds = totalMilliseconds % 1000;
       
-      setElapsedTime({ years, months, days, minutes, seconds, milliseconds, microseconds });
+      setElapsedTime({ years, months, days, minutes, seconds, milliseconds });
     };
 
     updateElapsed();
@@ -68,7 +66,7 @@ export const useTimer = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const formatTime = (time: { years: number, months: number, days: number, minutes: number, seconds: number, milliseconds: number, microseconds: number }) => {
+  const formatTime = (time: { years: number, months: number, days: number, minutes: number, seconds: number, milliseconds: number }) => {
     const parts = [];
     
     if (time.years > 0) {
@@ -80,8 +78,7 @@ export const useTimer = () => {
       time.days.toString().padStart(2, '0'),
       time.minutes.toString().padStart(2, '0'),
       time.seconds.toString().padStart(2, '0'),
-      time.milliseconds.toString().padStart(3, '0'),
-      time.microseconds.toString().padStart(3, '0')
+      time.milliseconds.toString().padStart(3, '0')
     );
     
     return parts.join('.');
@@ -90,6 +87,6 @@ export const useTimer = () => {
   return {
     seconds: elapsedTime.minutes * 60 + elapsedTime.seconds,
     formattedTime: formatTime(elapsedTime),
-    reset: () => setElapsedTime({ years: 0, months: 0, days: 0, minutes: 0, seconds: 0, milliseconds: 0, microseconds: 0 })
+    reset: () => setElapsedTime({ years: 0, months: 0, days: 0, minutes: 0, seconds: 0, milliseconds: 0 })
   };
 };
