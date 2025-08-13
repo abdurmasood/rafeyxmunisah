@@ -45,7 +45,7 @@ const UpdatesPanel = forwardRef<{ togglePanel: () => void }, UpdatesPanelProps>(
           </div>
 
           {/* Updates List */}
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto updates-panel-scrollbar">
             <div className="px-8 space-y-6">
               {updates.length === 0 ? (
                 <div className="text-center py-12">

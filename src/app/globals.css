@@ -89,3 +89,29 @@ body {
   background-color: rgba(255, 255, 255, 0.2);
   transform: scale(0.98);
 }
+
+/* Custom scrollbar for UpdatesPanel */
+.updates-panel-scrollbar {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05);
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+.updates-panel-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.updates-panel-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.updates-panel-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.updates-panel-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
