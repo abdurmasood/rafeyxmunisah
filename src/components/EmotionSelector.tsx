@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, forwardRef, useImperativeHandle, useEffect, useRef, useCallback } from 'react';
-import { Smile, Frown, Angry, Heart, Meh, Laugh, Zap } from 'lucide-react';
+import { Smile, Frown, Angry, Heart, Meh, Laugh, Zap, Coffee } from 'lucide-react';
 
 const emotions = [
   { icon: Smile, name: 'happy', label: 'Happy' },
@@ -11,6 +11,7 @@ const emotions = [
   { icon: Meh, name: 'neutral', label: 'Neutral' },
   { icon: Laugh, name: 'excited', label: 'Excited' },
   { icon: Zap, name: 'energetic', label: 'Energetic' },
+  { icon: Coffee, name: 'tired', label: 'Tired' },
 ];
 
 const EmotionSelector = forwardRef<{ togglePopup: () => void }>((props, ref) => {
