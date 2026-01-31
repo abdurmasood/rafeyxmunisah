@@ -56,12 +56,12 @@ export default function UserSelector() {
           <div className="py-2">
             {users.map((user) => (
               <button
-                key={user.id}
+                key={user._id}
                 className="w-full px-4 py-2 text-left text-white hover:bg-gray-800 transition-colors duration-200 flex items-center justify-between"
                 onClick={() => handleUserSelect(user)}
               >
                 <span>{user.display_name}</span>
-                {currentUser?.id === user.id && (
+                {currentUser?._id === user._id && (
                   <Check className="w-4 h-4 text-green-500" strokeWidth={2} />
                 )}
               </button>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Courier_Prime } from "next/font/google";
 import "./globals.css";
+import { ConvexClientProvider } from "@/providers/ConvexClientProvider";
 import { UserProvider } from "@/contexts/UserContext";
 import AuthWrapper from "@/components/AuthWrapper";
 
@@ -54,11 +55,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${courierPrime.variable} antialiased`}
       >
-        <UserProvider>
-          <AuthWrapper>
-            {children}
-          </AuthWrapper>
-        </UserProvider>
+        <ConvexClientProvider>
+          <UserProvider>
+            <AuthWrapper>
+              {children}
+            </AuthWrapper>
+          </UserProvider>
+        </ConvexClientProvider>
       </body>
     </html>
   );

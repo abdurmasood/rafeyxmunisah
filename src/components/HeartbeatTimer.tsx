@@ -35,7 +35,7 @@ export default function HeartbeatTimer() {
     }
     
     const message = emotionMessages[emotion as keyof typeof emotionMessages] || `Feeling ${emotion}`;
-    addUpdate(message, currentUser.id, emotion);
+    addUpdate(message, currentUser._id, emotion);
   }, [addUpdate, currentUser]);
 
   const handlePanelOpen = useCallback(() => {

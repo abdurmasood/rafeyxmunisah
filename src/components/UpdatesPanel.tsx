@@ -62,7 +62,7 @@ const UpdatesPanel = forwardRef<{ togglePanel: () => void }, UpdatesPanelProps>(
                 </div>
               ) : (
                 updates.map((update, index) => (
-                  <div key={update.id} className="group">
+                  <div key={update._id} className="group">
                     <div className="mb-2 flex items-center justify-between">
                       <span className="text-xs text-[#ffffff]/80 font-mono tracking-wide">
                         {update.timestamp}
