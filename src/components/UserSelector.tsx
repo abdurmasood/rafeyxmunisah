@@ -1,89 +1,71 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { Users, Check } from 'lucide-react';
 import { useUser } from '@/contexts/UserContext';
 
 export default function UserSelector() {
   const { currentUser, users, setCurrentUser, isLoading } = useUser();
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const handleUserSelect = (user: typeof users[0]) => {
-    setCurrentUser(user);
-    setIsOpen(false);
-  };
 
   if (isLoading) {
     return (
       <div className="p-2 opacity-50">
-        <Users className="w-6 h-6 text-white/60" strokeWidth={1} />
+        <Users className="size-6 text-white/60" strokeWidth={1} aria-hidden="true" />
       </div>
     );
   }
 
   return (
-    <div className="relative" ref={dropdownRef}>
-      <button 
-        className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-200 flex items-center gap-2"
-        onClick={() => setIsOpen(!isOpen)}
-        title={currentUser ? `Logged in as ${currentUser.display_name}` : 'Select user'}
-      >
-        <Users className="w-6 h-6 text-white/60 hover:text-white" strokeWidth={1} />
-        {currentUser && (
-          <span className="text-white/80 text-sm font-medium">
-            {currentUser.display_name}
-          </span>
-        )}
-      </button>
-      
-      {isOpen && (
-        <div className="absolute top-full mt-2 right-0 bg-gray-900 border border-gray-700 rounded-lg shadow-xl min-w-[150px] z-50">
-          <div className="py-2">
-            {users.map((user) => (
-              <button
-                key={user._id}
-                className="w-full px-4 py-2 text-left text-white hover:bg-gray-800 transition-colors duration-200 flex items-center justify-between"
-                onClick={() => handleUserSelect(user)}
-              >
-                <span>{user.display_name}</span>
-                {currentUser?._id === user._id && (
-                  <Check className="w-4 h-4 text-green-500" strokeWidth={2} />
-                )}
-              </button>
-            ))}
-            
-            {users.length === 0 && (
-              <div className="px-4 py-2 text-gray-400 text-sm">
-                No users available
-              </div>
-            )}
-            
-            <hr className="border-gray-700 my-2" />
-            
-            <button
-              className="w-full px-4 py-2 text-left text-gray-400 hover:bg-gray-800 transition-colors duration-200 text-sm"
-              onClick={() => setCurrentUser(null)}
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger asChild>
+        <button
+          aria-label={currentUser ? `Logged in as ${currentUser.display_name}` : 'Select user'}
+          className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-200 flex items-center gap-2"
+        >
+          <Users className="size-6 text-white/60 hover:text-white" strokeWidth={1} aria-hidden="true" />
+          {currentUser && (
+            <span className="text-white/80 text-sm font-medium">
+              {currentUser.display_name}
+            </span>
+          )}
+        </button>
+      </DropdownMenu.Trigger>
+
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content
+          className="bg-gray-900 border border-gray-700 rounded-lg shadow-xl min-w-[150px] z-50 py-2 animate-in fade-in-0 zoom-in-95"
+          sideOffset={8}
+          align="end"
+        >
+          {users.map((user) => (
+            <DropdownMenu.Item
+              key={user._id}
+              className="px-4 py-2 text-white hover:bg-gray-800 transition-colors duration-200 flex items-center justify-between cursor-pointer outline-none focus:bg-gray-800"
+              onSelect={() => setCurrentUser(user)}
             >
-              Sign out
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
+              <span>{user.display_name}</span>
+              {currentUser?._id === user._id && (
+                <Check className="size-4 text-green-500" strokeWidth={2} aria-hidden="true" />
+              )}
+            </DropdownMenu.Item>
+          ))}
+
+          {users.length === 0 && (
+            <div className="px-4 py-2 text-gray-400 text-sm text-pretty">
+              No users available
+            </div>
+          )}
+
+          <DropdownMenu.Separator className="h-px bg-gray-700 my-2" />
+
+          <DropdownMenu.Item
+            className="px-4 py-2 text-gray-400 hover:bg-gray-800 transition-colors duration-200 text-sm cursor-pointer outline-none focus:bg-gray-800"
+            onSelect={() => setCurrentUser(null)}
+          >
+            Sign out
+          </DropdownMenu.Item>
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
   );
 }

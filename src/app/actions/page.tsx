@@ -8,7 +8,7 @@ export default function ActionsPage() {
   const { currentUser, logout } = useUser();
 
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-8 relative">
+    <div className="min-h-dvh bg-black flex flex-col items-center justify-center gap-8 relative">
       {/* Navigation tabs - centered at top */}
       <div className="absolute top-6 left-1/2 transform -translate-x-1/2">
         <NavigationTabs />
@@ -21,20 +21,20 @@ export default function ActionsPage() {
             Welcome, {currentUser.display_name}
           </span>
         )}
-        <button 
+        <button
+          aria-label="Sign out"
           className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-200"
           onClick={logout}
-          title="Sign out"
         >
-          <LogOut className="w-5 h-5 text-white/60 hover:text-white" strokeWidth={1} />
+          <LogOut className="size-5 text-white/60 hover:text-white" strokeWidth={1} aria-hidden="true" />
         </button>
       </div>
 
       {/* Coming Soon Content */}
       <div className="text-center">
         <h1 className="text-4xl font-bold text-white mb-4">Actions</h1>
-        <p className="text-xl text-white/60 font-geist-sans">Coming Soon</p>
-        <p className="text-sm text-white/40 mt-2">This feature is under development</p>
+        <p className="text-xl text-white/60 font-geist-sans text-pretty">Coming Soon</p>
+        <p className="text-sm text-white/40 mt-2 text-pretty">This feature is under development</p>
       </div>
     </div>
   );

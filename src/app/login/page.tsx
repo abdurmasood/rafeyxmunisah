@@ -50,25 +50,26 @@ export default function LoginPage() {
   // Show loading while checking authentication
   if (contextLoading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <Heart className="w-12 h-12 text-red-500 fill-red-500 animate-heartbeat" strokeWidth={1} />
+      <div className="min-h-dvh bg-black flex items-center justify-center">
+        <Heart className="size-12 text-red-500 fill-red-500 animate-heartbeat" strokeWidth={1} aria-hidden="true" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center justify-center px-4">
+    <div className="min-h-dvh bg-black flex flex-col items-center justify-center px-4">
       <div className="w-full max-w-sm">
         {/* Logo/Brand */}
         <div className="text-center mb-8">
-          <Heart 
-            className="w-16 h-16 text-red-500 fill-red-500 mx-auto mb-4 animate-heartbeat" 
+          <Heart
+            className="size-16 text-red-500 fill-red-500 mx-auto mb-4 animate-heartbeat"
             strokeWidth={1}
+            aria-hidden="true"
           />
           <h1 className="font-courier-prime text-3xl text-white tracking-wider mb-2">
             Rafey x Munisah
           </h1>
-          <p className="text-white/60 text-sm">
+          <p className="text-white/60 text-sm text-pretty">
             To Infinity.
           </p>
         </div>
@@ -78,7 +79,7 @@ export default function LoginPage() {
           {/* Username Field */}
           <div className="space-y-2">
             <div className="relative">
-              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/40" strokeWidth={1} />
+              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 size-5 text-white/40" strokeWidth={1} aria-hidden="true" />
               <input
                 type="text"
                 value={username}
@@ -93,7 +94,7 @@ export default function LoginPage() {
           {/* Password Field */}
           <div className="space-y-2">
             <div className="relative">
-              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/40" strokeWidth={1} />
+              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 size-5 text-white/40" strokeWidth={1} aria-hidden="true" />
               <input
                 type="password"
                 value={password}
@@ -120,7 +121,7 @@ export default function LoginPage() {
           >
             {isLoading ? (
               <div className="flex items-center justify-center">
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                <div className="size-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
                 Signing In...
               </div>
             ) : (
@@ -131,7 +132,7 @@ export default function LoginPage() {
 
         {/* Helper Text */}
         <div className="mt-8 text-center">
-          <p className="text-white/40 text-xs">
+          <p className="text-white/40 text-xs text-pretty">
             Enter your username and password to get access.
           </p>
         </div>

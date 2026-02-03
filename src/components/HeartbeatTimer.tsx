@@ -1,6 +1,6 @@
 'use client';
 
-import { Heart, ArrowUpRight, MessageCircleMore, LogOut } from 'lucide-react';
+import { Heart, MessageCircleMore, LogOut } from 'lucide-react';
 import { useTimer } from '@/hooks/useTimer';
 import { usePersistedUpdates } from '@/hooks/usePersistedUpdates';
 import { useUser } from '@/contexts/UserContext';
@@ -25,15 +25,13 @@ export default function HeartbeatTimer() {
   const { updates, unreadCount, addUpdate, markAllAsRead } = usePersistedUpdates();
   const { currentUser, logout } = useUser();
   const updatesPanelRef = useRef<{ togglePanel: () => void }>(null);
-  const emotionSelectorRef = useRef<{ togglePopup: () => void }>(null);
 
   const handleEmotionSelect = useCallback((emotion: string) => {
     if (!currentUser) {
-      // Could show a toast or alert here
       console.warn('User not authenticated');
       return;
     }
-    
+
     const message = emotionMessages[emotion as keyof typeof emotionMessages] || `Feeling ${emotion}`;
     addUpdate(message, currentUser._id, emotion);
   }, [addUpdate, currentUser]);
@@ -44,7 +42,7 @@ export default function HeartbeatTimer() {
 
   return (
     <>
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-8 relative">
+      <div className="min-h-dvh bg-black flex flex-col items-center justify-center gap-8 relative">
         {/* Navigation tabs - centered at top */}
         <div className="absolute top-6 left-1/2 transform -translate-x-1/2">
           <NavigationTabs />
@@ -57,54 +55,48 @@ export default function HeartbeatTimer() {
               Welcome, {currentUser.display_name}
             </span>
           )}
-          <button 
+          <button
+            aria-label="Sign out"
             className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-200"
             onClick={logout}
-            title="Sign out"
           >
-            <LogOut className="w-5 h-5 text-white/60 hover:text-white" strokeWidth={1} />
+            <LogOut className="size-5 text-white/60 hover:text-white" strokeWidth={1} aria-hidden="true" />
           </button>
         </div>
 
         <div className="relative">
-          <Heart 
-            className="w-24 h-24 text-red-500 fill-red-500 animate-heartbeat" 
+          <Heart
+            className="size-24 text-red-500 fill-red-500 animate-heartbeat"
             strokeWidth={1}
+            aria-hidden="true"
           />
         </div>
-        
+
         <div className="font-courier-prime text-2xl text-white tracking-wider tabular-nums text-center">
           {formattedTime}
         </div>
-        
-        <div className="flex gap-4 relative">
-          <button 
-            className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-200"
-            onClick={() => emotionSelectorRef.current?.togglePopup()}
+
+        <div className="flex gap-4">
+          <EmotionSelector
+            onEmotionSelect={handleEmotionSelect}
             disabled={!currentUser}
-            title={!currentUser ? "User not available" : "Add emotion update"}
-          >
-            <ArrowUpRight className={`w-6 h-6 ${!currentUser ? 'text-white/30' : 'text-white/60 hover:text-white'}`} strokeWidth={1} />
-          </button>
-          <button 
+          />
+          <button
+            aria-label={`View updates${unreadCount > 0 ? ` (${unreadCount} unread)` : ''}`}
             className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-200 relative"
             onClick={() => updatesPanelRef.current?.togglePanel()}
           >
-            <MessageCircleMore className="w-6 h-6 text-white/60 hover:text-white" strokeWidth={1} />
+            <MessageCircleMore className="size-6 text-white/60 hover:text-white" strokeWidth={1} aria-hidden="true" />
             {unreadCount > 0 && (
-              <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-medium rounded-full w-5 h-5 flex items-center justify-center">
+              <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-medium rounded-full size-5 flex items-center justify-center">
                 {unreadCount}
               </div>
             )}
           </button>
-          <EmotionSelector 
-            ref={emotionSelectorRef} 
-            onEmotionSelect={handleEmotionSelect}
-          />
         </div>
       </div>
-      
-      
+
+
       <UpdatesPanel ref={updatesPanelRef} updates={updates} onPanelOpen={handlePanelOpen} />
     </>
   );

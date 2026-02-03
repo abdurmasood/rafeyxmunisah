@@ -30,8 +30,8 @@ export default function AuthWrapper({ children }: AuthWrapperProps) {
   // Show loading spinner while checking authentication
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <Heart className="w-12 h-12 text-red-500 fill-red-500 animate-heartbeat" strokeWidth={1} />
+      <div className="min-h-dvh bg-black flex items-center justify-center">
+        <Heart className="size-12 text-red-500 fill-red-500 animate-heartbeat" strokeWidth={1} aria-hidden="true" />
       </div>
     );
   }
@@ -44,8 +44,8 @@ export default function AuthWrapper({ children }: AuthWrapperProps) {
   // Show loading screen if not authenticated (prevents flash while redirecting)
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <Heart className="w-12 h-12 text-red-500 fill-red-500 animate-heartbeat" strokeWidth={1} />
+      <div className="min-h-dvh bg-black flex items-center justify-center">
+        <Heart className="size-12 text-red-500 fill-red-500 animate-heartbeat" strokeWidth={1} aria-hidden="true" />
       </div>
     );
   }
