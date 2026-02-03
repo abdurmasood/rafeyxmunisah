@@ -2,14 +2,16 @@
 
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
-import { Plus } from "lucide-react";
+import { Plus, LogOut } from "lucide-react";
 import { useState } from "react";
 import { CreateAlbumModal } from "./CreateAlbumModal";
+import { useUser } from "@/contexts/UserContext";
 import Link from "next/link";
 
 export function Timeline() {
   const albums = useQuery(api.albums.list);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const { currentUser, logout } = useUser();
 
   if (albums === undefined) {
     return (
@@ -26,6 +28,20 @@ export function Timeline() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Header with user info and logout */}
+      <header className="fixed top-0 left-0 right-0 z-20 flex items-center justify-between px-6 py-4">
+        <div className="text-sm text-[var(--muted-foreground)]">
+          {currentUser?.display_name}
+        </div>
+        <button
+          onClick={logout}
+          className="p-2 text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors duration-200"
+          aria-label="Sign out"
+        >
+          <LogOut className="w-5 h-5" strokeWidth={1.5} />
+        </button>
+      </header>
+
       {/* Album list */}
       <main className="flex-1 flex flex-col items-center justify-center px-8 py-16">
         {albums.length === 0 ? (
