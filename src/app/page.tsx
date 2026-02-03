@@ -1,5 +1,5 @@
-import HeartbeatTimer from '@/components/HeartbeatTimer';
+import { Timeline } from "@/components/Timeline";
 
 export default function Home() {
-  return <HeartbeatTimer />;
+  return <Timeline />;
 }

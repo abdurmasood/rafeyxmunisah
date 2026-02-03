@@ -8,8 +8,8 @@
  * @module
  */
 
-import type * as heartbeat from "../heartbeat.js";
-import type * as updates from "../updates.js";
+import type * as albums from "../albums.js";
+import type * as photos from "../photos.js";
 import type * as users from "../users.js";
 
 import type {
@@ -19,8 +19,8 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
-  heartbeat: typeof heartbeat;
-  updates: typeof updates;
+  albums: typeof albums;
+  photos: typeof photos;
   users: typeof users;
 }>;
 

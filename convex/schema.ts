@@ -8,15 +8,19 @@ export default defineSchema({
     password_hash: v.string(),
   }).index("by_name", ["name"]),
 
-  updates: defineTable({
-    user_id: v.id("users"),
-    content: v.string(),
-    emotion_type: v.string(),
-    timestamp: v.string(),
-    is_read: v.boolean(),
+  albums: defineTable({
+    name: v.string(),
+    date: v.optional(v.string()),
+    location: v.optional(v.string()),
+    created_at: v.number(),
   }),
 
-  heartbeatConfig: defineTable({
-    start_date: v.string(),
-  }),
+  photos: defineTable({
+    album_id: v.id("albums"),
+    storage_id: v.id("_storage"),
+    caption: v.optional(v.string()),
+    order: v.number(),
+    width: v.number(),
+    height: v.number(),
+  }).index("by_album", ["album_id"]),
 });
