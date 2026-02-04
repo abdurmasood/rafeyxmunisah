@@ -51,12 +51,7 @@ export default function LoginPage() {
   if (contextLoading) {
     return (
       <div className="min-h-dvh flex items-center justify-center">
-        <div
-          className="text-[var(--muted-foreground)] text-sm tracking-widest uppercase animate-pulse"
-          style={{ fontFamily: "var(--font-geist-sans)" }}
-        >
-          Loading...
-        </div>
+        <div className="w-8 h-8 border-2 border-[var(--muted-foreground)]/30 border-t-[var(--accent)] rounded-full animate-spin" />
       </div>
     );
   }

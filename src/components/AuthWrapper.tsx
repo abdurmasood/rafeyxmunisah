@@ -3,7 +3,6 @@
 import { useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useUser } from '@/contexts/UserContext';
-import { Heart } from 'lucide-react';
 
 interface AuthWrapperProps {
   children: React.ReactNode;
@@ -30,8 +29,8 @@ export default function AuthWrapper({ children }: AuthWrapperProps) {
   // Show loading spinner while checking authentication
   if (isLoading) {
     return (
-      <div className="min-h-dvh bg-black flex items-center justify-center">
-        <Heart className="size-12 text-red-500 fill-red-500 animate-heartbeat" strokeWidth={1} aria-hidden="true" />
+      <div className="min-h-dvh flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-[var(--muted-foreground)]/30 border-t-[var(--accent)] rounded-full animate-spin" />
       </div>
     );
   }
@@ -44,8 +43,8 @@ export default function AuthWrapper({ children }: AuthWrapperProps) {
   // Show loading screen if not authenticated (prevents flash while redirecting)
   if (!isAuthenticated) {
     return (
-      <div className="min-h-dvh bg-black flex items-center justify-center">
-        <Heart className="size-12 text-red-500 fill-red-500 animate-heartbeat" strokeWidth={1} aria-hidden="true" />
+      <div className="min-h-dvh flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-[var(--muted-foreground)]/30 border-t-[var(--accent)] rounded-full animate-spin" />
       </div>
     );
   }

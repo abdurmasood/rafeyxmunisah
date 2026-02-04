@@ -167,13 +167,13 @@ export function PhotoViewer({ photos, initialIndex, onClose }: PhotoViewerProps)
                 onChange={(e) => setEditedCaption(e.target.value)}
                 placeholder="Add a caption..."
                 autoFocus
-                className="w-full bg-transparent border-b border-white/30 pb-2 text-[#f5f0e8] placeholder:text-white/40 focus:outline-none focus:border-[#d4a574] transition-colors"
+                className="w-full bg-transparent border-b border-white/30 pb-2 text-[#f5f0e8] placeholder:text-white/40 focus:outline-none focus:border-[#e71d36] transition-colors"
                 style={{ fontFamily: "var(--font-playfair)" }}
               />
               <div className="flex gap-6 items-center">
                 <button
                   onClick={handleSaveCaption}
-                  className="text-[#d4a574] hover:text-white transition-colors text-sm tracking-wide"
+                  className="text-[#e71d36] hover:text-white transition-colors text-sm tracking-wide"
                 >
                   Save
                 </button>
@@ -215,7 +215,7 @@ export function PhotoViewer({ photos, initialIndex, onClose }: PhotoViewerProps)
             <div>
               {currentPhoto.caption ? (
                 <p
-                  className="text-[#f5f0e8] text-lg cursor-pointer hover:text-[#d4a574] transition-colors"
+                  className="text-[#f5f0e8] text-lg cursor-pointer hover:text-[#e71d36] transition-colors"
                   onClick={handleStartEdit}
                   style={{ fontFamily: "var(--font-playfair)" }}
                 >
